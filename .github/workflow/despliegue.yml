@@ -1,0 +1,35 @@
+name: Comprobar script y preparar version
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_disoatch:
+permissions:
+  contents: read
+
+jobs:
+  preparar:
+    runs-on: windows-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+
+      - name: Ejecutar script
+        shell: pwsh
+        run: ./desplegar.ps1 -RutaPHP 'php'
+
+      - name: Guardar version preparada
+        uses: actions/upload-artifact@v4
+        with:
+          name: version-preparada
+          path: Prubas/index.php
+          if-no-files-found: error
