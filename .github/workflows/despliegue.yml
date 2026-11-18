@@ -31,5 +31,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: version-preparada
-          path: Prubas/index.php
+          path: Pruebas/index.php
           if-no-files-found: error
